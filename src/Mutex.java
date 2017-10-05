@@ -1,76 +1,70 @@
 
-public class Mutex {
+public class Mutex implements Runnable {
 
 	private boolean fetched = false;
 	private boolean peeled = false;
 	private boolean squeezed = false;
 	private boolean bottled = false;
 
+	// employee will fetch the orange
+	public synchronized void fetch() {
 
-	public synchronized void fetch(){
-
-
-		while(fetched){
-			try{
+		while (fetched) {
+			try {
 				this.wait();
-			}
-			catch(InterruptedException e){
+			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-				
-			}
-			fetched = true;	
+
 		}
-				
-	public synchronized void peel(){
+		fetched = true;
+	}
 
+	// employee will peel the orange
+	public synchronized void peel() {
 
-		while(peeled){
-			try{
+		while (peeled) {
+			try {
 				this.wait();
-			}
-			catch(InterruptedException e){
+			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-				
-			}
-			peeled = true;	
+
 		}
+		peeled = true;
+	}
 
-	public synchronized void squeeze(){
+	// employee will squeeze the orange
+	public synchronized void squeeze() {
 
-
-		while(squeezed){
-			try{
+		while (squeezed) {
+			try {
 				this.wait();
-			}
-			catch(InterruptedException e){
+			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-				
-			}
-			squeezed = true;	
+
 		}
-	
-	public synchronized void bottle(){
+		squeezed = true;
+	}
 
+	// employee will bottle the juice
+	public synchronized void bottle() {
 
-		while(bottled){
-			try{
+		while (bottled) {
+			try {
 				this.wait();
-			}
-			catch(InterruptedException e){
+			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-				
-			}
-			bottled = true;	
+
 		}
-	
+		bottled = true;
+	}
+
+	@Override
+	public void run() {
+
+	}
+
 }
-	
-
-	
-
-
-
