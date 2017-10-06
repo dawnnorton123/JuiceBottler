@@ -1,0 +1,5 @@
+My plant has 5 workers that will each collect, peel, squeeze and bottle oranges. 
+At the end of the process we are supposed to have a count of how many were bottled and 
+ how many were processed and how many oranges were wasted. I tried to add four new threads and 
+have each worker do their own task.
+Dawn Norton
