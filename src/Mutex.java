@@ -18,6 +18,8 @@ public class Mutex implements Runnable {
 
 		}
 		fetched = true;
+		System.out.println(Thread.currentThread().getName() + "I am fetching");
+
 	}
 
 	// employee will peel the orange
@@ -32,6 +34,7 @@ public class Mutex implements Runnable {
 
 		}
 		peeled = true;
+		System.out.println("I am peeling");
 	}
 
 	// employee will squeeze the orange
@@ -46,9 +49,11 @@ public class Mutex implements Runnable {
 
 		}
 		squeezed = true;
+		System.out.println("I am squeezing");
 	}
 
 	// employee will bottle the juice
+
 	public synchronized void bottle() {
 
 		while (bottled) {
@@ -59,10 +64,10 @@ public class Mutex implements Runnable {
 			}
 
 		}
+		System.out.println("I am bottleing");
 		bottled = true;
 	}
 
-	@Override
 	public void run() {
 
 	}

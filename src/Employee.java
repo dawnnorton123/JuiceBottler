@@ -1,36 +1,62 @@
 
 public class Employee implements Runnable {
 
-	private static final int NUM_EMPLOYEE = 4;
+	// Summarize the results
 
-	// Startup the Employee
+	int orangesProcessed;
+	public final int ORANGES_PER_BOTTLE = 4;
+	private final Thread thread;
+	private int orangesProvided;
+	private volatile boolean timeToWork;
+	private static final int NUM_EMPLOYEE = 4;
 
 	Employee[] employee = new Employee[NUM_EMPLOYEE];
 
-	Employee() {
-		new Thread(this, "Employee");
+	Employee(int num) {
 
-		for (int i = 0; i < NUM_EMPLOYEE; i++) {
-
-		}
-
+		thread = new Thread(this, "Employee[" + num + "] ");
 	}
 
-	// supposed to start the employee
-	@SuppressWarnings("null")
-	public void startEmployee() {
-		Thread thread = null;
+	public int getProvidedOranges() {
+
+		return orangesProvided;
+	}
+
+	public int getProcessedOranges() {
+
+		return orangesProcessed;
+	}
+
+	public int getBottles() {
+		int orangesProcessed = 0;
+
+		return orangesProcessed / ORANGES_PER_BOTTLE;
+	}
+
+	public int getWaste() {
+
+		return orangesProcessed % ORANGES_PER_BOTTLE;
+	}
+
+	public void startPlant() {
+		timeToWork = true;
 		thread.start();
 	}
 
-	// supposed to stop the employee
-	public void stopEmployee() {
+	public void stopPlant() {
+		timeToWork = false;
 	}
 
-	// supposed to have the employee wait to stop
-	@SuppressWarnings("null")
+	public void startEmployee() {
+		timeToWork = true;
+		thread.start();
+	}
+
+	public void stopEmployee() {
+		timeToWork = false;
+	}
+
 	public void waitToStop() {
-		Thread thread = null;
 		try {
 			thread.join();
 		} catch (InterruptedException e) {
@@ -38,15 +64,21 @@ public class Employee implements Runnable {
 		}
 	}
 
-	// supposed to run the employee
 	public void run() {
-		System.out.print(Thread.currentThread().getName() + " I am working");
-		boolean timeToWork = false;
+		System.out.print(Thread.currentThread().getName() + " Processing oranges");
 		while (timeToWork) {
-
+			processEntireOrange(new Orange());
+			orangesProvided++;
 			System.out.print(".");
 		}
 		System.out.println("");
+	}
+
+	public void processEntireOrange(Orange o) {
+		while (o.getState() != Orange.State.Bottled) {
+			o.runProcess();
+		}
+		orangesProcessed++;
 	}
 
 }

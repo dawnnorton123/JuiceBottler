@@ -32,6 +32,7 @@ public class Orange {
 
 	public void runProcess() {
 		// Don't attempt to process an already completed orange
+		System.out.println("I am in run process");
 		if (state == State.Processed) {
 			throw new IllegalStateException("This orange has already been processed");
 		}
@@ -40,6 +41,7 @@ public class Orange {
 	}
 
 	private void doWork() {
+		System.out.println(Thread.currentThread().getName() + "I am in do work");
 		// Sleep for the amount of time necessary to do the work
 		try {
 			Thread.sleep(state.timeToComplete);
